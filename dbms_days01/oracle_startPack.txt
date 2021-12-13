@@ -1,0 +1,106 @@
+오라클
+
+라이센스 동의
+
+specify database password
+
+접속 용 비번
+adminuser
+adminuser
+
+
+cmd
+
+sqlplus
+
+SQL*Plus: Release 11.2.0.2.0 Production on 월 12월 13 13:50:24 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password : adminuser
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+내가 사용할계정 생성
+SQL> create user scott identified by tiger;
+아이디 scott 비번 tiger
+
+권한 주기
+grant dba to scott;
+
+Grant succeeded.
+
+사용자 계정 변경
+conn
+Enter user-name: scott
+Enter password:
+Connected.
+
+이클
+
+new java project
+
+Oracle_DataBase
+
+window - show view - other
+
+Data Management
+Data Source Explorer
+
+Database Connections - New 
+oracle 선택 
+
+Drivers
+
+Oracle Thin Driver system version 11
+
+Jar List 탭
+ojdbc14.jar  remove 하기
+
+Add Jar/Zip
+추가할 경로 C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
+
+ojdbc6.jar 추가
+
+
+Properties
+Connection URL jdbc:oracle:thin:@server:1521:db
+ server 지우고 db 지우고 localhost, xe 넣기
+
+jdbc:oracle:thin:@localhost:1521:xe 로 변경
+
+Database Name db 지우고 xe 로
+
+Password tiger
+
+User ID scott
+
+하단 Test Connection
+Ping succeeded!!
+
+save password 체크
+
+Catalog DBA 로 변경
+
+
+
+이클
+type oracle_11 name new oracle database xe
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
