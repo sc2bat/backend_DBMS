@@ -1,0 +1,6 @@
+복사된 파일의 경로에다가 들어가서
+
+
+imp scott/tiger file=expall.dmp log=expall.log ignore=y grants=y rows=y indexes=y full=y
+
+총 9개의 외부 테이블 import 
