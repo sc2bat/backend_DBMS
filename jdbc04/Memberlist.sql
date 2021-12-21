@@ -1,0 +1,3 @@
+SELECT * FROM memberlist;
+
+ ALTER SEQUENCE member_seq MAXVALUE 10000;
