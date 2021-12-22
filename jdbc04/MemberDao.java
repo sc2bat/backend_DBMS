@@ -161,8 +161,9 @@ public class MemberDao {
 				mdto.setPhone(rs.getString("phone"));
 				mdto.setBirth(rs.getDate("birth"));
 				mdto.setBpoint(rs.getInt("bpoint"));
-				mdto.setAge(rs.getInt("age"));
+				mdto.setJoindate(rs.getDate("joindate"));
 				mdto.setGender(rs.getString("gender"));
+				mdto.setAge(rs.getInt("age"));
 			}
 				
 		} catch (SQLException e) {
@@ -178,7 +179,7 @@ public class MemberDao {
 		
 		int result = 0;
 		String sql="UPDATE memberlist SET name=?, phone=?, birth=?, bpoint=?, "+
-				"age=?, gender=? WHERE num=?";
+				"age=?, gender=?, joindate=? WHERE num=?";
 		con = getConnection();
 		
 		try {
@@ -189,7 +190,8 @@ public class MemberDao {
 			pstmt.setInt(4, mdto.getBpoint());
 			pstmt.setInt(5, mdto.getAge());
 			pstmt.setString(6, mdto.getGender());
-			pstmt.setInt(7, mdto.getNum());
+			pstmt.setDate(7, mdto.getJoindate());
+			pstmt.setInt(8, mdto.getNum());
 			
 			result = pstmt.executeUpdate();
 				
@@ -204,10 +206,20 @@ public class MemberDao {
 	public int delete(int num){
 		// 1명의 회원번호를 전달받아서 해당 회원의 레코드를 삭제
 		int result = 0;
-		String sql="";
+		String sql="DELETE FROM memberlist WHERE num=?";
+		
 		con = getConnection();
 		
-		close();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result = pstmt.executeUpdate();
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 		return result;
 		
 	}
