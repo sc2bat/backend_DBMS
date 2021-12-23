@@ -60,8 +60,9 @@ public class RentDao {
 				list.add(rdto);
 			}
 		} catch (SQLException e) {e.printStackTrace();
+		}finally {
+			DBmanager.close(con, pstmt, rs);
 		}
-		DBmanager.close(con, pstmt, rs);
 		return list;
 	}
 	
@@ -111,36 +112,37 @@ public class RentDao {
 	
 	public int update(RentDto rdto) {
 		int result = 0;
-		String sql="UPDATE rentlist SET rentdate=to_date('||?||','YYYYMMDD'), num=?, booknum=?" +
-				"membernum=?, discount=? WHERE num =?";
 		con = DBmanager.getConnection();
+		String sql="UPDATE rentlist SET rentdate= to_date(''||?||'','YYYYMMDD'), booknum=?," +
+				" membernum=?, discount=? WHERE num =?";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				rdto = new RentDto();
-				rdto.setRentdate(rs.getString("rd"));
-				rdto.setNum(num);
-				rdto.setBooknum(rs.getInt("booknum"));
-				rdto.setMembernum(rs.getInt("membernum"));
-				rdto.setDiscount(rs.getInt("discount"));
-			}
+			pstmt.setString( 1, rdto.getRentdate() );
+			pstmt.setInt(2,  rdto.getBooknum() );
+			pstmt.setInt(3,  rdto.getMembernum() );
+			pstmt.setInt(4,  rdto.getDiscount() );
+			pstmt.setInt(5, rdto.getNum() );
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			DBmanager.close(con, pstmt, rs);
 		}
-		
-		DBmanager.close(con, pstmt, rs);
 		return result;
 	}
 	
 	public int delete(int num) {
 		int result = 0;
 		con = DBmanager.getConnection();
-		
-		DBmanager.close(con, pstmt, rs);
+		String sql = "DELETE FROM rentlist WHERE num=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {e.printStackTrace();
+		}finally {
+			DBmanager.close(con, pstmt, rs);
+		}
 		return result;
 	}
 
@@ -193,6 +195,39 @@ public class RentDao {
 		}finally {DBmanager.close(con, pstmt, rs);
 		}
 		return result;
+	}
+
+	public ArrayList<RentDetailDto> selectAll() {
+		
+		// 
+		ArrayList<RentDetailDto> list = new ArrayList<RentDetailDto>();
+		/*String sql = "SELECT TO_CHAR(r.rentdate, 'YYYY-MM-DD') AS rentdate, r.num AS rentnum,"
+				+ "m.num AS membernum, m.name AS membername,"
+				+ "b.rentprice - r.discount AS rentprice2,"
+				+ "b.num AS booknum, b.subject AS subject "
+				+ "FROM rentlist r, booklist b, memberlist m "
+				+ "WHERE r.booknum = b.num AND r.membernum = m.num "
+				+ "ORDER BY r.num DESC ";*/
+		String sql = "SELECT * FROM rentdetail";
+		con = DBmanager.getConnection();
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				RentDetailDto rdto = new RentDetailDto();
+				rdto.setRentdate(rs.getString("rentdate"));
+				rdto.setRentnum(rs.getInt("rentnum"));
+				rdto.setMembernum(rs.getInt("membernum"));
+				rdto.setMembername(rs.getString("membername"));
+				rdto.setRentprice2(rs.getInt("rentprice2"));
+				rdto.setBooknum(rs.getInt("booknum"));
+				rdto.setSubject(rs.getString("subject"));
+				list.add(rdto);
+			}
+		} catch (SQLException e) {e.printStackTrace();
+		}finally {DBmanager.close(con, pstmt, rs);
+		}
+		return list;
 	}
 
 }
