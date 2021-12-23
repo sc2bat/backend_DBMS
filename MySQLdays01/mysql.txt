@@ -1,0 +1,98 @@
+MySQL server 8.0
+
+https://dev.mysql.com./downloads/
+
+MySQL Installer for Windows
+ MySQL Community Downloads
+
+Windows (x86, 32-bit), MSI Installer
+
+
+mysql-installer-community-8.0.27.1.msi
+
+
+Connector/J
+
+Connector/J 8.0.27
+Select Operating System: Platform Independent
+
+Platform Independent (Architecture Independent), ZIP Archive
+
+
+개인컴 PC 윈도우계정이 한글이면 설치가 안됨
+한글이라면 관리자모드로 새로운 영어 계정으로 설치
+
+설치 경로에도 한글이 있으면 안됨
+
+
+msi 실행
+
+choosing a setup type
+custom
+
+Select Products
+MySQL Server 8.0.27 x 64 추가
+MySQL Workbench 8.0.27 x64 추가
+
+localhost	port 3306
+
+비밀번호 adminuser
+
+workbench 에서 설정
+Connection Name RootConnection
+password adminuser 확인 연결 확인
+Test Connection
+
+
+오라클은 로그인 계정마다 공간이 생김
+그 공간을 통틀어 스키마
+== 대강 오라클계정 = 스키마
+
+MySQL 계정에 여러 스키마 가능
+스키마 먼저 생성
+
+Name: scott
+charset/Collation 젤 아래쪽 utf8mb4
+
+apply 
+
+하면 스키마 생성 명령이 나옴
+CREATE SCHEMA `scott` DEFAULT CHARACTER SET utf8mb4 ;
+
+
+이클립스
+자바 프로젝트 생성
+MySQL_DataBase
+
+mysql-connector-java-8.0.27.jar
+
+
+data Source Explorer
+
+Database Connections
+new
+name/type mysql 5.1
+jar list  mysql-connector-java-8.0.27.jar
+
+ping test 해서 연결확인
+
+my sql 은 시퀀스가 따로 없음
+대신 AI Auto Increment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
