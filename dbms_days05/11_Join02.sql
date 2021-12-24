@@ -153,7 +153,7 @@ SELECT * FROM EMP A, DEPT B WHERE A.deptno(+) = B.deptno;
 -- [3] ANSI join
 -- 	(1) Ansi Cross join
 SELECT * FROM EMP, DEPT; -- 일반 크로스 조인 표현
-SELECT * FROM EMP, CROSS JOIN DEPT; -- ANSI CROSS JOIN -> 일반 크로스 조인과 같은 효과
+SELECT * FROM EMP CROSS JOIN DEPT; -- ANSI CROSS JOIN -> 일반 크로스 조인과 같은 효과
 
 -- 	(2) Ansi inner join -- 일반 equi 조인과 같은 효과
 -- 		일반 equi 조인 표현 방식
